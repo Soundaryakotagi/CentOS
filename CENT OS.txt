@@ -1,0 +1,151 @@
+Overview of CentOS
+CentOS(Community Enterprise Operating System) is a free and open-source Linux distribution based on Red Hat Enterprise Linux (RHEL), well-known for its stability and long-term support, making it a popular choice for server deployments in India. Many businesses rely on CentOS for enterprise CentOS Stream, which provides early access to upcoming RHEL updates while maintaining documentation and resources. With a strong emphasis on security and reliability, CentOS continues to be a trusted operating system for developers and enterprises alike, serving as a solid foundation for various applications across diverse environments. It supports a wide range of hardware, making it versatile for different setups. CentOS also benefits from regular security updates, ensuring that systems remain secure. Its package management system, YUM, simplifies software installation and updates. Finally, the large base fosters collaboration and sharing of best practices within the community.
+HISTORY
+CENT OS is a Linux based OS ,It is an RPM based by Gregory Kurtzer in 2002
+In 2006,David Parshley , the primary developer of Tao Linux announced the retirement so that the Cent OS was developed
+In July 2009,it is written in the CENT OS project website that one of the CentOS's founders ,Lance Davis had stop contributing to it and later in august 2009 Cent OS team made contact with Davis and obtained the centos.info and centos.org domains
+In July 2010, CentOs overtook DEBAIN(which is an Linux based OS) to become most popular Linux ,almost 30% 0f Linux web servers using it then DEBAIN retook the lead in 2012
+in January 2014,Red hat announced that it would sponsor for cent os project to establish a platform well suited for the needs of open source developers that integrate technologies in and around the Operating system so that all the ownership of Centos trade market was transferred to Red Hat, which now employs by most of CentOS head developers, A new CentOS governing board was also established by this
+On dec 8 2020,the distribution of the CentOS project would be discontinued at the end of 2021 in order to focus on CentOS stream, as sooner Kurtzer announced a new project to continue the original CentOS Linux, aiming with RHEL. After that many Linux based OS are published like ALMALINUX,ROCKY LINUX,ROCKY LINUX 8.4 and so on...
+
+
+DESIGN PRINCIPLES
+CentOS developers used RED HAT's source code to create a similar product like RHEL so that RED HAT's branding and logos were changes 
+CentOS is available for free of cost
+Technical support is primarily provided by the community through mails, web forums and chat rooms.
+1.Stability: It was build in such a way that which is used as user friendly, more reliable for those using it, so that it will run smoothly for a long time ,so you can trust it to handle important task without any sudden issues.
+2.Community Driven: CentOS is a community effort so it is mix of users and developers who all want to make it better for everyone.
+3.Enterprise Focus: It is like a colleague for who are running a business because to handle important applications without any surprises, keeping everything running smoothly.
+4.Long-term Support: With CentOS , you don't have to keep upgrading all the time , you'll get a notifications if any updates and support is available, which makes it easier to manage.
+5.Open Source Freedom: We can use CentOS for free, we can explore it and make changes if u want and even we can share the improvements with others.
+6.Compatibility: It works well with many other software programs , so you don't have to worry about clashing and all, you can mix and match with other hassle.
+7..Security and Compliance : CentOS takes security seriously that can keep our system safe and ensure us to meet industry standards so we can work with focus on ourselves without any stress.
+
+KERNEL MODULES
+These are essential components that allow the kernel to extend its capabilities dynamically , this means that you can  add new features , especially device drivers , without rebooting the system.
+Why use Kernel Modules?
+1.Dynamic Loading and Unloading:
+You can load modules as needed, which can be use through hands(like USB devices), The flexibility enhances system performance and memory efficiency
+2.Device Drivers:
+Many hardware devices require specific driver to function , instead of having all drivers loaded at boot(which could slow down your systems),CentOS loads only what is necessary.
+3.Resource Management:
+Unused drivers can be unloaded , freeing up system resources. This is particularly useful in server environments where performance is critical.
+
+Managing kernel modules in Cent OS 
+Kernel modules are vital components of Linux kernel that allow to extend its functionally without needing to reboot the system. Here's how to efficiently manage them in CentOS. 
+1.Listing Loading a Module
+To see all currently loaded kernel modules, you can use:
+code:
+	lsmod
+This command provides a list of modules along with their size and usage count.
+2.Loading a Module
+To load a module into the kernel, you can use:
+code:
+	sudo modprobre <module_name>
+The modprobe command automatically handles dependences, making it the preferred option.
+
+If u want to load a module directly from a specific file, you can use: 
+To unload a module, use:
+code:
+	sudo insmod /path/to/module.ko
+Note that insmod does not resolve dependencies, so it's less commonly used.
+ 
+3.Unloading a Module
+To unload a module, Use:
+code:
+	sudo modprobr -r ,<module_name>
+This command safely removes the module, ensuring that no dependent modules are in use.
+
+Alternatively, you can also use:
+code:
+	sudormmod <module_name>
+The rmmod command may force the removal without checking dependencies, which can lead to issues.
+
+4.Checking Module Information 
+To get detailed information about a module use:
+code:
+	modinfo <module_name>
+This includes the module's author, description, license, parameters and dependencies
+5.Blacklisting Modules 
+If you want to  prevent a module from loading at boot time, you can do the following:
+	1. Open or create the blacklist configuration file:
+	code:
+		sudo nano /etc/modprobe.d/blacklist.conf
+	2.Add the following line:
+	code:
+		blacklist <module_name>
+This will ensure that the specified module doesn't load automatically
+6.Automatically Loading Modules at Boot
+To ensure a specific module loads during system startup:
+	1.Create a configuraton file in /etc/module-load.d/:
+	Code:
+		sudo nano /etc/module-load.d/<module_name>.conf
+	2.Add the module name:
+	Code:
+		<module_name>
+7.Viewing Module Dependencies
+To check the dependencies of a particular module, use:
+code:
+	modprobe --show-depends <module_name>
+This helps you identify which modules need to be loaded first
+8.Kernel module configuration options 
+Some modules require specific parameters to function correctly. To get these options:
+	1.Edit or create a configuration file in /etc/modprobe.d/:
+	code:
+		sudo nano /etc/modprobe.d/<module_name>.conf
+	2.Add options in this format:
+	code:
+		options <module_name> <option_name>=<value>
+9.Building custom Modules 
+if you need to build your own kernel modules:
+	1.Install the necessary development tools:
+	code:
+		sudo yum install kernel-devel kernel-headers
+	2.Navigate to your module source directory and build it:
+	code:
+		make
+		sudo make install
+10.Checking module status after reboot
+After making changes (like blacklisting or adding modules), it's good to reboot your system. you can then verify if the changes took effect:
+ ->Check loaded modules again using lsmod.
+ ->Confirm that blacklisted modules are not loaded.
+
+
+System Logs:If you face issues with loading and unloading modules, check system logs using dmesg or journalctl for any error messages.
+Kernel Versions:Be aware that modules are often specific to the kernel version, If you update your kernel, you may need to rebuild or reload modules.
+Documentation:Always refer to the module documentation (usually available in /usr/share/doc/kernel-doc/ or online) for specific usage instructions
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
