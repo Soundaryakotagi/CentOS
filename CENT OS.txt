@@ -4,7 +4,7 @@ HISTORY
 CENT OS is a Linux based OS ,It is an RPM based by Gregory Kurtzer in 2002
 In 2006,David Parshley , the primary developer of Tao Linux announced the retirement so that the Cent OS was developed
 In July 2009,it is written in the CENT OS project website that one of the CentOS's founders ,Lance Davis had stop contributing to it and later in august 2009 Cent OS team made contact with Davis and obtained the centos.info and centos.org domains
-In July 2010, CentOs overtook DEBAIN(which is an Linux based OS) to become most popular Linux ,almost 30% 0f Linux web servers using it then DEBAIN retook the lead in 2012
+In July 2010, CentOS overtook DEBAIN(which is an Linux based OS) to become most popular Linux ,almost 30% 0f Linux web servers using it then DEBAIN retook the lead in 2012
 in January 2014,Red hat announced that it would sponsor for cent os project to establish a platform well suited for the needs of open source developers that integrate technologies in and around the Operating system so that all the ownership of Centos trade market was transferred to Red Hat, which now employs by most of CentOS head developers, A new CentOS governing board was also established by this
 On dec 8 2020,the distribution of the CentOS project would be discontinued at the end of 2021 in order to focus on CentOS stream, as sooner Kurtzer announced a new project to continue the original CentOS Linux, aiming with RHEL. After that many Linux based OS are published like ALMALINUX,ROCKY LINUX,ROCKY LINUX 8.4 and so on...
 
@@ -111,14 +111,75 @@ After making changes (like blacklisting or adding modules), it's good to reboot 
  ->Confirm that blacklisted modules are not loaded.
 
 
-System Logs:If you face issues with loading and unloading modules, check system logs using dmesg or journalctl for any error messages.
-Kernel Versions:Be aware that modules are often specific to the kernel version, If you update your kernel, you may need to rebuild or reload modules.
-Documentation:Always refer to the module documentation (usually available in /usr/share/doc/kernel-doc/ or online) for specific usage instructions
+System Logs: If you face issues with loading and unloading modules, check system logs using dmesg or journalctl for any error messages.
+Kernel Versions: Be aware that modules are often specific to the kernel version, If you update your kernel, you may need to rebuild or reload modules.
+Documentation: Always refer to the module documentation (usually available in /usr/share/doc/kernel-doc/ or online) for specific usage instructions
 
-
-
-
- 
+PROCESS MAMAGEMENT
+A Key component of the operating system that manages how programs run and interact with each other on a system
+Key Concepts 
+1.Processes:A process is a program in execution. It consists of the program code, its current activity and the process stack, which contains temporary data.
+Process ID(PID):A unique identifier assigned to each process.
+Parent Process ID(PPID):The PID of the process that started the current process.
+State: The current state of the process, which can be:
+	Running: Actively executing.
+	Waiting: Waiting for an event to occur (like I/O completion).
+	Stopped: Temporarily halted, usually by a signal.
+	Zombie: A process that has completed execution but still has an entry in the process table(waiting for its to read its exit status).
+2.Foreground vs Background Processes  
+Foreground Processes:
+The processes are started from the terminal and can interact with the user.
+They receive input from the keyboard and display output directly to the terminal.
+Background Processes:
+Run independently of the terminal session. You can launch a process in the background by appending & at the end of the command.
+They do not interact with the user directly, allowing the terminal to be used for other commands.
+Example:
+code:
+	#Running a command in the background
+	sleep 100 &
+3.Daemons: Daemons are special types of background processes that typically start at boot time and run continuously. They perform tasks without direct user interaction , managing services or handling requests.
+Examples of Daemons:
+	httpd: The Apache HTTP server daemon.
+	sshd: The OpenSSH daemon for secure shell access.
+	cron: Manages scheduled tasks.
+4.Key Commands for Viewing and Managing Processes
+ps command 
+Usage: Displays a snapshot of current processes.
+Options:
+	a: Show processes for all users.
+	u: Display the user/owner of the process.
+	x: Show processes not attached to a terminal.
+Example:
+code:
+	ps aux
+top command
+	usage: Provides a dynamic, real-time view of system processes.
+	Pressing shift+M sorts by memory usage, and other metrics.
+ 5.Manaaging Processes 
+kill command
+	usage: Sends signals to processes.
+	Common signals:
+		SITTERM (default): Requests a process to terminate peacefully.
+		SIGKILL (-9): Forces termination immediately without cleanup.
+Example:
+code:
+	kill <PID>
+	kill -9 <PID>
+pkill command
+	usage: Kills processes by name rather than PID.
+Example:
+code:
+	pkill firefox
+6.Job Control
+	bg command: Resumes a suspended job in the background.
+	fg command: Brings a background job to the background.
+	jobs command: Lists the jobs managed by the shel, showing job IDs and their statuses.
+Example:
+code:
+	#start a command, suspend it with Ctrl+z, then run it in the background
+	bg %1	#background job 1
+	fg %1	#background job 1 to the foreground
+7.
 
 
 
